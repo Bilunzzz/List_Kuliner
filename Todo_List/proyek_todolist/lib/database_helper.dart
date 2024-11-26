@@ -1,4 +1,4 @@
-import 'package:flutter_crud_sqflite/todo.dart';
+import 'package:proyek_todolist/todo.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper.internal();
+  DatabaseHelper.internal();
 
   factory DatabaseHelper() => _instance;
 
@@ -18,20 +19,18 @@ class DatabaseHelper {
     return _db;
   }
 
-  DatabaseHelper.internal();
-
   Future<Database> initDb() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(
       documentsDirectory.path,
       'todolist.db',
     );
-    var theDb = await openDatabase(
+    var localDb = await openDatabase(
       path,
       version: 1,
       onCreate: _onCreate,
     );
-    return theDb;
+    return localDb;
   }
 
   void _onCreate(Database db, int version) async {
@@ -39,10 +38,10 @@ class DatabaseHelper {
         CREATE TABLE 
         IF NOT EXISTS todos 
         (
-          id INTEGER PRIMARY KEY,
-          title TEXT NOT NULL,
-          description TEXT,
-          completed INTEGER NOT NULL
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          nama TEXT NOT NULL,
+          deskripsi TEXT NOT NULL,
+          done INTEGER NOT NULL DEFAULT 0
         )   
         ''');
   }
