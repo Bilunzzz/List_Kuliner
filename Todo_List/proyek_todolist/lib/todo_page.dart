@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyek_todolist/database_helper.dart';
 import 'package:proyek_todolist/todo.dart';
 
 class TodoPage extends StatelessWidget {
@@ -26,29 +27,41 @@ class TodoList extends StatefulWidget {
 class _TodoList extends State<TodoList> {
   TextEditingController _namaCtrl = TextEditingController();
   TextEditingController _deskripsiCtrl = TextEditingController();
-  List<Todo> todoList = Todo.dummyData;
+  List<Todo> todoList = [];
 
-  void refreshList() {
+  final dbHelper = DatabaseHelper();
+
+  @override
+  void initState() {
+    super.initState();
+    refreshList();
+  }
+
+  void refreshList() async {
+    final todos = await dbHelper.getAllTodos();
     setState(() {
-      todoList = todoList;
+      todoList = todos;
     });
   }
 
-  void addItem() {
-    todoList.add(Todo(_namaCtrl.text, _deskripsiCtrl.text));
+  void addItem() async {
+    await dbHelper.insertTodo(Todo(_namaCtrl.text, _deskripsiCtrl.text));
+    // todoList.add(Todo(_namaCtrl.text, _deskripsiCtrl.text));
     refreshList();
 
     _namaCtrl.text = '';
     _deskripsiCtrl.text = '';
   }
 
-  void updateItem(int index, bool done) {
+  void updateItem(int index, bool done) async {
     todoList[index].done = done;
+    await dbHelper.updateTodo(todoList[index]);
     refreshList();
   }
 
-  void deleteItem(int index) {
-    todoList.removeAt(index);
+  void deleteItem(int id) async {
+    // todoList.removeAt(index);
+    await dbHelper.deleteTodo(id);
     refreshList();
   }
 
