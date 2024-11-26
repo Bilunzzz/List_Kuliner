@@ -13,4 +13,17 @@ class Todo {
     Todo("Membuat Aplikasi E-Commerce",
         "Membuat aplikasi e-commerce menggunakan Flutter"),
   ];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'nama': nama,
+      'deskripsi': deskripsi,
+      'done': done
+    };
+  }
+
+  factory Todo.fromMap(Map<String, dynamic> map) {
+    return Todo(map['nama'] as String, map['deskripsi'] as String,
+        done: map['done'] == 0 ? false : true);
+  }
 }
