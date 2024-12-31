@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "898516400157",
+    "project_id": "todolist-192dc",
+    "storage_bucket": "todolist-192dc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898516400157:android:a9c743bfb774420d702ef4",
+        "android_client_info": {
+          "package_name": "com.nabilul.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoyKlAuHgeiEZj66ftToua0dqvcOh4Qxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
