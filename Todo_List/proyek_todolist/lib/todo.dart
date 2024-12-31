@@ -1,29 +1,31 @@
 class Todo {
-  String nama;
-  String deskripsi;
-  bool done;
+  final int id;
+  final String title;
+  final String description;
+  bool completed;
 
-  Todo(this.nama, this.deskripsi, {this.done = false});
-
-  static List<Todo> dummyData = [
-    Todo("Membuat Aplikasi Todo List",
-        "Membuat aplikasi todo list menggunakan Flutter"),
-    Todo("Membuat Aplikasi Chat", "Membuat aplikasi chat menggunakan Flutter",
-        done: true),
-    Todo("Membuat Aplikasi E-Commerce",
-        "Membuat aplikasi e-commerce menggunakan Flutter"),
-  ];
+  Todo({
+    required this.id,
+    required this.title,
+    required this.description,
+    this.completed = false,
+  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'nama': nama,
-      'deskripsi': deskripsi,
-      'done': done
+      'id': id,
+      'title': title,
+      'description': description,
+      'completed': completed ? 1 : 0,
     };
   }
 
   factory Todo.fromMap(Map<String, dynamic> map) {
-    return Todo(map['nama'] as String, map['deskripsi'] as String,
-        done: map['done'] == 0 ? false : true);
+    return Todo(
+      id: map['id'] as int,
+      title: map['title'] as String,
+      description: map['description'] as String,
+      completed: map['completed'] == 1,
+    );
   }
 }
